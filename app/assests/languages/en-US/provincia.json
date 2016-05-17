@@ -1,0 +1,15 @@
+{
+	"provincia" : {
+            "home": {
+                "title": "Provincia",
+                "createLabel": "New Provincia",
+                "createOrEditLabel": "Create or edit Provincia"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this Provincia {{ id }}?"
+            },
+            "detail": {
+                "title": "Provincia"
+            }            
+    }
+}

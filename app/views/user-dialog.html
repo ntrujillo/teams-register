@@ -1,0 +1,123 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myRoleLabel" 
+        translate="user.home.createOrEditLabel">Create or edit a User</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="user._id" readonly>
+        </div>
+        <div class="form-group">
+            <label translate="user.field.first_name" 
+            for="first_name">First Name</label>            
+             <input type="text" class="form-control" name="first_name" id="first_name"
+                    ng-model="user.firstName" required>           
+            <div ng-show="editForm.first_name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.first_name.$error.required" 
+                    translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>            
+        </div>
+        <div class="form-group">
+            <label translate="user.field.last_name" 
+            for="last_name">Last Name</label>            
+             <input type="text" class="form-control" name="last_name" id="last_name"
+                    ng-model="user.lastName">          
+                       
+        </div>
+        <div class="form-group">
+            <label translate="user.field.username" 
+            for="username">Login</label>            
+             <input type="text" class="form-control" name="username" id="username"
+                    ng-model="user.username" required>           
+            <div ng-show="editForm.username.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.username.$error.required" 
+                    translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>            
+        </div>
+        <div class="form-group">
+            <label translate="user.field.role" 
+            for="role">Login</label>            
+             <select class="form-control" id="role" 
+                name="role" ng-model="user.role._id" 
+                ng-options="c._id as c.name for c in roles" ng-required="true">                
+            </select>     
+            <div ng-show="editForm.role.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.role.$error.required" 
+                    translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>            
+        </div>
+        <div class="form-group">
+            <label translate="user.field.email" 
+            for="email">Login</label>            
+             <input type="email" class="form-control" name="email" id="email"
+                    ng-model="user.email">                      
+        </div>  
+        <div class="checkbox"> 
+          <label translate="user.field.status"></label>
+          <input type="checkbox" 
+             name="status" 
+             id="field_status"
+             ng-checked="user.active"
+             ng-model="user.active">
+           
+        </div>   
+        <div class="checkbox"> 
+         <label translate="user.field.change_password"></label>
+            <input type="checkbox" 
+                 name="changepass" 
+                 id="changepass"
+                 ng-checked="user.changepass"
+                 ng-model="user.changepass">
+        </div>             
+        <div class="form-group">
+            <label translate="user.field.password" 
+            for="password">Password</label>
+            <input type="password" class="form-control" name="password" 
+            id="password" ng-model="user.password" ng-required="isNew"> 
+            <div ng-show="editForm.password.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.password.$error.required" 
+                    translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>            
+        </div>
+        <div class="form-group">
+            <label translate="user.field.confirm_password" 
+            for="confirm_password">Confirm Password</label>
+            <input type="password" class="form-control" name="confirm_password" 
+            id="confirm_password" ng-model="password2" pw-check="password"> 
+            <div class="msg-block" ng-show="editForm.confirm_password.$error">
+              <span class="msg-error" ng-show="editForm.confirm_password.$error.pwmatch" 
+              translate="user.validation.match_password">
+                Passwords don't match.
+              </span>
+            </div>          
+        </div>       
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" 
+        ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

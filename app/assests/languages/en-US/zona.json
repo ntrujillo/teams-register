@@ -1,0 +1,16 @@
+{
+	"zona" : {
+            "home": {
+                "title": "Zona",
+                "titleWithParroquia" :"{{name}}'s zonas",
+                "createLabel": "New Zona",
+                "createOrEditLabel": "Create or edit Zona"
+            },
+            "delete": {
+                "question": "EAre you sure you want to delete this Zona {{ id }}?"
+            },
+            "detail": {
+                "title": "Zona"
+            }            
+    }
+}

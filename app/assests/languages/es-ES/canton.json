@@ -1,0 +1,16 @@
+{
+	"canton" : {
+            "home": {
+                "title": "Cantones",
+                "titleWithProvincia" :"Cantones de la provincia de {{name}}",
+                "createLabel": "Crear Cantón",
+                "createOrEditLabel": "Crear or editar Cantón"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar el Cantón {{ id }}?"
+            },
+            "detail": {
+                "title": "Cantón"
+            }            
+    }
+}

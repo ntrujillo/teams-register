@@ -1,0 +1,19 @@
+{
+	"team" : {
+            "home": {
+                "title": "Equipos",               
+                "createLabel": "Crear Equipo",
+                "createOrEditLabel": "Crear or editar Equipo"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar el Equipo {{ id }}?"
+            },
+            "detail": {
+                "title": "Equipo"
+            } ,
+            "field":{
+                "name" : "Nombre",
+                "description" : "Descripción"
+            }           
+    }
+}

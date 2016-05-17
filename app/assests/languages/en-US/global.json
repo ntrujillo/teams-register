@@ -1,0 +1,66 @@
+{
+	"global" : {
+		"menu":{
+			"home":"Home",
+			"entity":"Entities",
+			"about":"About",
+			"entry-votos":"Register Votos",
+			"search-votos":"Search Votos",
+			"admin":"Admin",
+			"signup":"New User"
+		},
+		"home":{
+			"welcome":"Welcome",
+			"greeting":"Universidad Central del Ecuador"
+		},
+	    "field" : {
+	    	"id" : "ID"
+	    },
+        "message" : {
+            "load" : "Load data"
+        },
+        "tooltip" : {
+            "edit":"Edit",
+            "seechilds" : "See Details",
+            "delete" : "Delete"
+
+        }
+	},
+	"entity": {
+        "action": {
+            "addblob": "Add blob",
+            "addimage": "Add image",
+            "back": "Back",
+            "cancel": "Cancel",
+            "delete": "Delete",
+            "edit": "Edit",
+            "save": "Save",
+            "view": "View",
+            "new" :"New"
+        },
+        "detail": {
+            "field": "Field",
+            "value": "Value"
+        },
+        "field" : {
+            "name" : "Name",
+            "code" : "Code"
+        },
+        "delete": {
+            "title": "Confirm delete operation"
+        },
+        "validation": {
+            "required": "This field is required",
+            "minlength": "Este campo requiere al menos {{min}} caracteres.",
+            "maxlength": "Este campo no puede ser mas largo que {{max}} caracteres.",
+            "min": "This field should be more than {{min}}.",
+            "max": "This field cannot be more than {{max}}.",
+            "minbytes": "This field should be more than {{min}} bytes.",
+            "maxbytes": "This field cannot be more than {{max}} bytes.",
+            "pattern": "This field should follow pattern {{pattern}}.",
+            "number": "This field is numeric",
+            "datetimelocal": "This field should be date and time."
+        }
+    }
+
+}

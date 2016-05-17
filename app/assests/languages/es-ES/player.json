@@ -1,0 +1,25 @@
+{
+	"player" : {
+            "home": {
+                "title": "Jugadores",               
+                "createLabel": "Crear Jugador",
+                "createOrEditLabel": "Crear or editar Jugador"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar el Jugador {{ id }}?"
+            },
+            "detail": {
+                "title": "Jugador"
+            } ,
+            "field":{
+                "cedula" : "Cedula",
+                "first_name" : "Primer Nombre",
+                "second_name" : "Segundo Nombre",
+                "paternal_surname" : "Primer Apellido",
+                "maternal_surname" :"Segundo Apellido",
+                "url":"Url",
+                "player_number" : "Numero"
+
+            }           
+    }
+}

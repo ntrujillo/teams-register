@@ -1,0 +1,93 @@
+<div class="brand">
+
+    <!-- logo -->
+    <div class="brand-logo">
+        SCEL
+    </div>
+    <!-- /logo -->
+
+    <!-- toggle small sidebar menu -->
+    <a href="javascript:;" class="toggle-sidebar hidden-xs hamburger-icon v3"
+       data-ng-click="app.layout.isSmallSidebar = !app.layout.isSmallSidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+    <!-- /toggle small sidebar menu -->
+</div>
+<!-- main navigation -->
+<nav role="navigation" side-navigation>
+
+    <ul class="nav">
+
+        <!-- dashboard -->
+        <li ui-sref-active="active">
+            <a ui-sref="home">
+                <i class="fa fa-home"></i>
+                <span translate="global.menu.home">Home</span>
+            </a>
+        </li>
+        <!-- /dashboard -->
+       
+
+        <!-- tables -->
+        <li data-ng-class="{open: $state.includes('app.resultados')}">
+           <a href="javascript:;">
+                <i class="fa fa-folder-open-o"></i>
+                <span translate="global.menu.register">Registro</span>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.player">
+                        <span translate="global.menu.player">Jugador</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.team">
+                        <span translate="global.menu.team">Equipo</span>
+                    </a>
+                </li>                                      
+            </ul>
+        </li>
+        <!-- /tables -->
+
+      
+        <!--admin-->
+
+        <li data-ng-class="{open: $state.includes('app.charts')}">
+            <a href="javascript:;">
+                <i class="fa fa-asterisk"></i>
+                <span translate="global.menu.entity">Entities</span>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.provincia">
+                        <span translate="global.menu.provincia">Provincias</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.canton">
+                        <span translate="global.menu.canton">Cantones</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.parroquia">
+                        <span translate="global.menu.parroquia">Parroquias</span>
+                    </a>
+                </li> 
+                <li ui-sref-active="active">
+                    <a ui-sref="app.role">
+                        <span translate="global.menu.role">Roles</span>
+                    </a>
+                </li>                
+                
+                 <li ui-sref-active="active">
+                    <a ui-sref="app.user">
+                        <span translate="global.menu.user">Users</span>
+                    </a>
+                </li>                                
+            </ul>
+        </li>
+</nav>
+<!-- /main navigation -->

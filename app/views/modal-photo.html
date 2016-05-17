@@ -1,0 +1,27 @@
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
+    <h4 class="modal-title" id="myTitleLabel">Take Photo</h4>
+  </div>
+  <div class="modal-body">
+    <main class="app">
+      <div class="row">
+        <div class="col-sm-6">
+          <ng-camera capture-message="Cheeeese!" countdown="3" output-height="160" output-width="213" viewer-height="320" viewer-width="426" image-format="jpeg" jpeg-quality="100" action-message="Take picture" snapshot="vm.picture" flash-fallback-url="/bower_components/webcamjs/webcam.swf" overlay-url="images/overlay.png" shutter-url="sounds/shutter.mp3"></ng-camera>
+        </div>
+        <div class="col-sm-6">
+          <center>
+            <img ng-if="vm.picture" ng-src="{{vm.picture}}" alt="webcam picture">
+          </center>
+        </div>
+      </div>
+    </main>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+      <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+    </button>
+  </div>
+</form>

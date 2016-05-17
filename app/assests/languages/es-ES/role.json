@@ -1,0 +1,20 @@
+{
+	"role" : {
+            "home": {
+                "title": "Roles",          
+                "createLabel": "Crear Rol",
+                "createOrEditLabel": "Crear or editar Rol"
+            },
+            "field":{
+                "name":"Nombre",
+                "description":"Descripcion",
+                "status":"Activo"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar el Rol {{ id }}?"
+            },
+            "detail": {
+                "title": "Rol"
+            }            
+    }
+}

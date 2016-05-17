@@ -1,0 +1,91 @@
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="cedula" translate="player.field.cedula">Cedula</label>
+        <input type="text" class="form-control" id="cedula" name="cedula" ng-model="player.cedula" S>
+        <div ng-show="editForm.cedula.$invalid">
+          <p class="help-block" ng-show="editForm.cedula.$error.required" translate="entity.validation.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="first_name" translate="player.field.first_name">Primer Nombre</label>
+        <input type="text" class="form-control" name="first_name" id="first_name" ng-model="player.first_name" required>
+        <div ng-show="editForm.first_name.$invalid">
+          <p class="help-block" ng-show="editForm.first_name.$error.required" translate="entity.validation.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="field_second_name">Segundo Nombre</label>
+        <input type="text" class="form-control" name="second_name" id="second_name" ng-model="player.second_name">
+      </div>
+      <div class="form-group">
+        <label for="paternal_surname">Primer Apellido</label>
+        <input type="text" class="form-control" name="paternal_surname" id="paternal_surname" ng-model="player.paternal_surname" required>
+        <div ng-show="editForm.paternal_surname.$invalid">
+          <p class="help-block" ng-show="editForm.paternal_surname.$error.required" translate="entity.validation.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="field_maternal_surname">Segundo Apellido</label>
+        <input type="text" class="form-control" name="maternal_surname" id="maternal_surname" ng-model="player.maternal_surname">
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <center><img class="registro-photo" ng-src='{{player.image_url}}' alt="webcam picture"> </center>
+      <center>
+        <button type="button" ng-click="showModal()"> <span class="glyphicon glyphicon-camera"></span>&nbsp;
+          <span>Take Photo</span></button>
+      </center>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <label for="field_birth_day">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" name="birth_day" id="field_birth_day" ng-model="player.birth_day">
+      </div>
+     <div class="form-group">
+        <label for="field_url">url</label>
+        <input type="text" class="form-control" name="birth_day" id="field_url" ng-model="player.image_url">
+      </div>
+           
+    </div>
+     <div class="col-xs-6">
+        <div class="form-group">
+          <label for="age">Edad</label>
+          <input type="text" class="form-control" name="age" id="age" ng-model="player.age">
+        </div>
+        <div class="form-group">
+          <label for="player_number">Number</label>
+          <input type="number" class="form-control" name="player_number" id="player_number" ng-model="player.player_number">
+        </div>
+     </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label for="field_address">Direccion</label>
+        <input type="text" class="form-control" name="address" id="field_address" ng-model="player.address">
+        </div> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-default" data-dismiss="modal" ui-sref="app.player">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+      </button>
+      <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+      </button>
+    </div>
+  </div>
+</form>

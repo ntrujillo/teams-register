@@ -1,0 +1,16 @@
+{
+	"parroquia" : {
+            "home": {
+                "title": "Parroquias",
+                "titleWithCanton" :"Parroquias del Cantón {{name}}",
+                "createLabel": "Crear Parroquia",
+                "createOrEditLabel": "Crear or editar Parroquia"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar la Parroquia {{ id }}?"
+            },
+            "detail": {
+                "title": "Parroquia"
+            }            
+    }
+}

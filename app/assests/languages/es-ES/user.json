@@ -1,0 +1,29 @@
+{
+	"user" : {
+            "home": {
+                "title": "Usuarios",          
+                "createLabel": "Crear Usuario",
+                "createOrEditLabel": "Crear or editar Usuario"
+            },
+            "field":{
+                "first_name":"Nombre",
+                "last_name":"Apellido",
+                "status":"Activo",
+                "email":"Email",
+                "username" : "Login"  ,
+                "password" : "Password",
+                "confirm_password" : "Confirmar Password",
+                "change_password" : "Solicitar cambio de password" ,
+                "role" : "Rol"                        
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar el Usuario {{ id }}?"
+            },
+            "detail": {
+                "title": "Usuario"
+            }  ,
+            "validation" :{
+                "match_password" : "El password no coincide"
+            }          
+    }
+}

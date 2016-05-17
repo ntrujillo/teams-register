@@ -1,0 +1,15 @@
+{
+	"provincia" : {
+            "home": {
+                "title": "Provincias",
+                "createLabel": "Crear Provincia",
+                "createOrEditLabel": "Crear or editar Provincia"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar la Provincia {{ id }}?"
+            },
+            "detail": {
+                "title": "Provincia"
+            }            
+    }
+}

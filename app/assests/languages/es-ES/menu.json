@@ -1,0 +1,27 @@
+{
+	"menu" : {
+            "home": {
+                "title": "Menu",                
+                "createLabel": "Crear Menu",
+                "createOrEditLabel": "Crear or editar Menu",
+                "expandAll" : "Expadir todos",
+                "collapseAll" : "Colapsar todos"
+            },
+            "delete": {
+                "question": "Está seguro que desea borrar el Menu {{ id }}?"
+            },
+            "field" : {
+                "name" : "Nombre",
+                "url" : "Url",
+                "icon" : "Icono",
+                "uistate":"ui-state",
+                "status" : "Activo"
+            },
+            "tooltip" : {
+                "new":"Nuevo",
+                "delete" : "Delete",
+                "edit":"Editar"
+            }
+
+    }
+}

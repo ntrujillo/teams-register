@@ -1,0 +1,79 @@
+{
+	"global" : {
+		"menu":{
+			"home":"Inicio",
+			"entity":"Entidades",
+			"about":"Acerca",
+			"entry-votos":"Ingresar Votos",
+			"search-votos":"Buscar Votos",
+			"admin":"Administración",
+            "role": "Roles",
+            "menu": "Menus",
+            "rolemenu" : "Roles-Menu",
+            "user":"Usuarios",
+			"signup":"Nuevo Usuario",
+            "provincia":"Provincia",
+            "canton":"Canton",
+            "parroquia":"Parroquia",
+            "register":"Registro",
+            "team":"Equipos",
+            "player":"Jugadores"
+		},
+		"home":{
+			"welcome":"Bienvenido",
+			"greeting":"Universidad Central del Ecuador",
+            "logout" : "Salir",
+            "user" : "Usuario: ",
+            "role" : "Rol: "
+		},
+	    "field" : {
+	    	"id" : "ID"
+	    },
+        "message" : {
+            "load" : "Cargando datos"
+        },
+        "tooltip" : {
+            "edit":"Editar",
+            "seechilds" : "Ver detalle",
+            "delete" : "Eliminar"
+
+        }
+	},
+	"entity": {
+        "action": {
+            "addblob": "Agregar blob",
+            "addimage": "Agregar imagen",
+            "back": "Atras",
+            "cancel": "Cancelar",
+            "delete": "Eliminar",
+            "edit": "Editar",
+            "save": "Guardar",
+            "view": "Vista",
+            "new" :"Nuevo"
+        },
+        "detail": {
+            "field": "Campo",
+            "value": "Valor"
+        },
+        "field" : {
+            "name" : "Nombre",
+            "code" : "Código"
+        },
+        "delete": {
+            "title": "Confirma borrar la operación"
+        },
+        "validation": {
+            "required": "Este campo es requerido",
+            "minlength": "Este campo requiere al menos {{min}} caracteres.",
+            "maxlength": "Este campo no puede ser mas largo que {{max}} caracteres.",
+            "min": "Este campo debe ser mayor que {{min}}.",
+            "max": "Este campo debe ser menor que{{max}}.",
+            "minbytes": "This field should be more than {{min}} bytes.",
+            "maxbytes": "This field cannot be more than {{max}} bytes.",
+            "pattern": "This field should follow pattern {{pattern}}.",
+            "number": "Este campo debe ser numérico",
+            "datetimelocal": "Este campo debe ser un date and time."
+        }
+    }
+
+}
