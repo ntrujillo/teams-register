@@ -28,3 +28,7 @@ node_modules
 
 #Dependecy bower components
 app/bower_components
+
+#kendo libs
+app/scripts/lib/kendo
+app/styles/kendo

@@ -14,15 +14,19 @@
       <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>   
         <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.min.css"/>  
-        <link rel="stylesheet" href="bower_components/perfect-scrollbar/css/perfect-scrollbar.css">       
+        <link rel="stylesheet" href="bower_components/perfect-scrollbar/css/perfect-scrollbar.css"/>       
        <!-- endbower -->
     <!-- endbuild -->
       <!-- build:css({.tmp,client}) app/app.css -->      
-        <link rel="stylesheet" href="styles/themes/default/font-awesome.css">
-        <link rel="stylesheet" href="styles/themes/default/urban.css">
-        <link rel="stylesheet" href="styles/themes/default/urban.skins.css">
-        <link rel="stylesheet" href="styles/themes/default/base.css">
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/kendo/kendo.common.min.css"/>
+        <link rel="stylesheet" href="styles/kendo/kendo.default.min.css"/>
+        <link rel="stylesheet" href="styles/kiui/kiui.min.css"/>
+        <link rel="stylesheet" href="styles/kendo/kendo.bootstrap.min.css"/>
+        <link rel="stylesheet" href="styles/themes/default/font-awesome.css"/>
+        <link rel="stylesheet" href="styles/themes/default/urban.css"/>
+        <link rel="stylesheet" href="styles/themes/default/urban.skins.css"/>
+        <link rel="stylesheet" href="styles/themes/default/base.css"/>
+        <link rel="stylesheet" href="styles/main.css"/>
       <!-- endinjector -->
     <!-- endbuild -->
 </head>
@@ -55,6 +59,10 @@
         <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,client}) /app.js -->
+    <script type="text/javascript" src="scripts/lib/kendo/kendo.web.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/kendo/kendo.all.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/kendo/kiui.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/kendo/kendo.angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="app.constants.js"></script>
     <script type="text/javascript" src="config.router.js"></script>
