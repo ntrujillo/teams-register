@@ -181,7 +181,7 @@ function update(_id, userParam) {
             set.hash = bcrypt.hashSync(userParam.password, 10);
         }
 
-        usersDb.findAndModify(
+        usersDb.findOneAndUpdate(
             { _id: _id },
             { $set: set },
             function (err, doc) {

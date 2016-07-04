@@ -327,6 +327,7 @@ angular.module('TeamsApp')
                                     name: 'role',
                                     files: [                                      
                                         'scripts/services/user.service.js',
+                                        'scripts/services/role.service.js',
                                         'scripts/controllers/user.controller.js'                                        
                                     ]
                                 }])

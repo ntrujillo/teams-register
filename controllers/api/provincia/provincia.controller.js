@@ -40,6 +40,7 @@ function createProvincia(req, res) {
     provinciaService.create(req.body)
         .then(function () {
             res.sendStatus(200);
+            res.send(res.response)
         })
         .catch(function (err) {
             res.status(400).send(err);

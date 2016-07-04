@@ -3,38 +3,9 @@
 
 
 angular.module('TeamsApp')
-    .controller('ProvinciaCtrl',['ProvinciaResource','$uibModal', function (ProvinciaResource,$modal) {
-        var ctrl = this;
-        ctrl.registros = [];
-        ctrl.pageno = 1;        
-        ctrl.total_count = 0;
-        ctrl.itemsPerPage = 5;      
-
-        function loadData(page) {
-            ProvinciaResource.query({page: page, per_page: ctrl.itemsPerPage,q:ctrl.filter}, function(result, headers) {                
-                ctrl.registros = result;
-                ctrl.total_count = headers('X-Total-Count');
-            });
-        };         
-
-        function _delete(id) {
-            ProvinciaResource.get({id: id}, function(result) {
-                ctrl.registro = result;
-                $('#deleteRegistroConfirmation').modal('show');
-            });
-        };
-
-       function confirmDelete(id) {
-            ProvinciaResource.delete({id: id},
-                function () {
-                    ctrl.refresh();
-                    $('#deleteRegistroConfirmation').modal('hide');                    
-                });
-        };
-
-        function refresh() {           
-            ctrl.loadData(ctrl.pageno);          
-        }; 
+    .controller('ProvinciaCtrl',['ProvinciaResource','$uibModal', '$filter' ,
+        function (ProvinciaResource, $modal , $filter) {
+        var ctrl = this;             
 
         function showModal(selectedProvincia) {
 
@@ -67,15 +38,13 @@ angular.module('TeamsApp')
                 });
         };  
 
-        var gridProvincias = {};
-
+       
         var gridDataSource = new kendo.data.DataSource({
             pageSize: 5,
             serverPaging:true,       
             transport: {
             read: function(options) {
-                if (angular.isDefined(options.data)) {
-                    console.log("page: "+options.data.skip +" per_page: "+options.data.pageSize);
+                if (angular.isDefined(options.data)) {                 
                     var promise = ProvinciaResource.query({page: (options.data.skip/options.data.pageSize)+1, per_page: options.data.pageSize},
                         function(result, headers){                          
                             options.success({"data":result,"total":headers('X-Total-Count')}); 
@@ -87,37 +56,40 @@ angular.module('TeamsApp')
                         xhr: {}
                     });
                 };
-            },
-            destroy: function(options) {
-                var model = options.data;     
-                
-                var promise = ProvinciaResource.delete({id: ctrl.id});
-                                               
-                promise.then(function(response) {    
-                    if(response.result){                                                                       
-                         options.success(model);                                    
-                    }else{
-                         options.error(new Error('DeletingError'));
-                    }
-                });
-               
-            },
-            update: function(options) { 
-
+            }, 
+            create: function(options) {
                 var model = options.data;  
-              
-                var promise = ProvinciaResource.update();
-                                               
-                promise.then(function(response) {    
-                    if(response.result){                                                                       
+                delete model._id;
+                ProvinciaResource.save(model, function(response) {                       
+                    if(response){                                                                       
                          options.success(model);                                    
                     }else{
                          options.error(model);
                     }
+                },function(error){
+                    console.log("Save error ",error);
                 });
-
-            }    
-                                           
+            },           
+            destroy: function(options) {
+                var model = options.data;               
+                var promise = ProvinciaResource.delete({id: model._id},function(response) {    
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(new Error('DeletingError'));
+                    }
+                });                   
+            },
+            update: function(options) {
+                var model = options.data;             
+                var promise = ProvinciaResource.update({id:model._id}, model, function(response) {    
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(model);
+                    }
+                });             
+            }                                          
         },
         schema: {
             total: function(response){
@@ -130,8 +102,8 @@ angular.module('TeamsApp')
             model:{
                 id:"_id",
                 fields: {
-                    code:{nullable:true},
-                    name:{editable:false}
+                    code:{nullable:false},
+                    name:{editable:true}
                 }
             }
             
@@ -147,24 +119,38 @@ angular.module('TeamsApp')
             {
                 field: "code",
                 title: 'Codigo',
-                width: "15%"                                     
+                width: "10%"                                     
             }, 
             {
                 field: "name",
                 title: 'Name',
-                width: "15%"                                     
-            }];
+                width: "75%"                                     
+            }, 
+            { command: [{
+                id: "edit",
+                name: "edit",
+                template: "<a class='k-button k-grid-edit' href='' style='min-width:16px;'><span class='k-icon k-edit'></span></a>"
+                },
+                {
+                id: "destroy",
+                name: "destroy",
+                template: "<a class='k-button k-grid-delete' href='' style='min-width:16px;'><span class='k-icon k-delete'></span></a>"
+                },
+                {
+                id:"view",
+                name:"view",               
+                template: "<a class='k-button k-grid-edit' ui-sref='app.provincia-detail({id:dataItem._id})' style='min-width:16px;'><span class='glyphicon glyphicon-eye-open'></span></a>"
+                }], title: "&nbsp;", width: "15%" }];
              
+        var toolbar = [ { name: "create", text: $filter('translate')('provincia.home.createLabel') }/*,
+            { template: "<input type='button' class='k-button' value='Email Users' onclick='sendEmail()' />",
+              imageclass: "k-icon k-i-pencil" }*/]
 
 
+        ctrl.toolbar = toolbar;
         ctrl.gridDataSource = gridDataSource;
-        ctrl.gridColumns = gridColumns;
-        ctrl.gridProvincias = gridProvincias;
-        ctrl.refresh = refresh;       
-        ctrl.confirmDelete = confirmDelete;
-        ctrl.deleteRegistro = _delete;     
+        ctrl.gridColumns = gridColumns;          
         ctrl.showModal = showModal;
-        ctrl.loadData = loadData;
-        ctrl.refresh();
+  
     }]);
 }(window.angular));

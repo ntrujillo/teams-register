@@ -1,15 +1,6 @@
-<div>    
-    <div>
-        <h2 translate="provincia.home.title">Provincias</h2>
-        <jh-alert></jh-alert>
-        <div class="row">
-            <div class="col-md-4">
-                <button class="btn btn-primary" ng-click="ctrl.showModal()">
-                    <span class="glyphicon glyphicon-flash"></span> <span translate="provincia.home.createLabel">Create a new Provincia</span>
-                </button>
-            </div>           
-        </div>         
-    </div>  
+<div> 
+    <h2 translate="provincia.home.title">Provincias</h2>
+    <jh-alert></jh-alert>    
     <kendo-grid
          k-data-source="ctrl.gridDataSource" 
          k-sortable="true"
@@ -21,6 +12,7 @@
          k-selectable="true"
          k-editable="'inline'" 
          k-columns="ctrl.gridColumns"
+         k-toolbar = "ctrl.toolbar"
          k-pageable="true">
     </kendo-grid>   
 </div>

@@ -106,7 +106,7 @@ function create(provinciaParam) {
             function (err, doc) {
                 if (err) deferred.reject(err);
 
-                deferred.resolve();
+                deferred.resolve(provincia);
             });
     }
 

@@ -1,83 +1,127 @@
 (function(angular){
     'use strict';
 
+
 angular.module('TeamsApp')
-    .controller('CantonDetailCtrl',['$stateParams','$uibModal', 'CantonParroquiaResource','CantonResource',
-        function ($stateParams, $modal, CantonParroquiaResource, CantonResource) {
+    .controller('CantonDetailCtrl',['CantonResource','CantonParroquiaResource','$uibModal', '$filter' ,'$stateParams',
+        function (CantonResource, CantonParroquiaResource, $modal , $filter,$stateParams) {
         var ctrl = this;
-        ctrl.registros = [];
-        ctrl.pageno = 1;        
-        ctrl.total_count = 0;
-        ctrl.itemsPerPage = 5;
-
-
 
         function loadData(page) {
             CantonResource.get({id:$stateParams.id},function(result){
                 ctrl.canton = result;
-            });
-
-            CantonParroquiaResource.query({id_canton: $stateParams.id, page: page, per_page: ctrl.itemsPerPage}, function(result, headers) {                
-                ctrl.registros = result;
-                ctrl.total_count = headers('X-Total-Count');
-            });
-        };         
-
-
-        function _delete(id) {
-            CantonParroquiaResource.get({id_canton: $stateParams.id, id:id}, function(result) {
-                ctrl.registro = result;
-                $('#deleteRegistroConfirmation').modal('show');
-            });
-        };
-
-       function confirmDelete(id) {
-            CantonParroquiaResource.delete({id_canton: $stateParams.id, id: id},
-                function () {
-                    ctrl.loadData(ctrl.pageno);
-                    $('#deleteRegistroConfirmation').modal('hide');                    
+            });            
+        };      
+        
+        var gridDataSource = new kendo.data.DataSource({
+            pageSize: 5,
+            serverPaging:true,       
+            transport: {
+            read: function(options) {
+                if (angular.isDefined(options.data)) {                 
+                    var promise = CantonParroquiaResource.query({id_canton: $stateParams.id, 
+                        page: (options.data.skip/options.data.pageSize)+1, per_page: options.data.pageSize},
+                        function(result, headers){                          
+                            options.success({"data":result,"total":headers('X-Total-Count')}); 
+                    });                                              
+                   
+                };
+                if (promise === false) {
+                    options.error({                        
+                        xhr: {}
+                    });
+                };
+            }, 
+            create: function(options) {
+                var model = options.data;  
+                delete model._id;
+                CantonParroquiaResource.save({id_canton:$stateParams.id}, model, function(response) {                       
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(model);
+                    }
+                },function(error){
+                    console.log("Save error ",error);
                 });
-        };
+            },           
+            destroy: function(options) {
+                var model = options.data;               
+                var promise = CantonParroquiaResource.delete({id_canton: $stateParams.id,id: model._id},function(response) {    
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(new Error('DeletingError'));
+                    }
+                });                   
+            },
+            update: function(options) {
+                var model = options.data;             
+                var promise = CantonParroquiaResource.update({id_canton: $stateParams.id, id:model._id}, model, function(response) {    
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(model);
+                    }
+                });             
+            }                                          
+        },
+        schema: {
+            total: function(response){
+                return response.total;
+            },
+            data:function(response){
+                
+                return response.data;
+            },
+            model:{
+                id:"_id",
+                fields: {
+                    code:{nullable:false},
+                    name:{editable:true}
+                }
+            }
+            
+        },
+        error: function(e) {
+                    if (e.xhr.message && e.xhr.message == 'DeletingError') {
+                        console.log("Error",e);
+                    }
+        }
+    });
 
-        function refresh() {
-            ctrl.loadData(ctrl.pageno);          
-        };    
+        var gridColumns = [  
+            {
+                field: "code",
+                title: 'Codigo',
+                width: "10%"                                     
+            }, 
+            {
+                field: "name",
+                title: 'Name',
+                width: "80%"                                     
+            }, 
+            { command: [{
+                id: "edit",
+                name: "edit",
+                template: "<a class='k-button k-grid-edit' href='' style='min-width:16px;'><span class='k-icon k-edit'></span></a>"
+                },
+                {
+                id: "destroy",
+                name: "destroy",
+                template: "<a class='k-button k-grid-delete' href='' style='min-width:16px;'><span class='k-icon k-delete'></span></a>"
+                }], title: "&nbsp;", width: "10%" }];
+             
+        var toolbar = [ { name: "create", text: $filter('translate')('parroquia.home.createLabel') }/*,
+            { template: "<input type='button' class='k-button' value='Email Users' onclick='sendEmail()' />",
+              imageclass: "k-icon k-i-pencil" }*/]
 
-        function showModal(selectedCanton) {
 
-                var modalInstance = $modal.open({
-                  templateUrl: 'views/parroquia-dialog.html',
-                  controller: 'ParroquiaDialogCtrl as ctrl',
-                  size: 'sm',
-                  backdrop: 'static',
-                  animation: true,
-                  resolve : {
-                    entity : function(){
-                        return selectedCanton;
-                    },
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                {
-                                    name: 'parroquia-dialog',
-                                    files: [                                      
-                                        'scripts/services/canton.parroquia.service.js',
-                                        'scripts/controllers/parroquia-dialog.controller.js'                                        
-                                    ]
-                                }])
-                        }]
-                  }
-                });
-
-                modalInstance.result.then(function(obj) {
-                  ctrl.result = obj;
-                  ctrl.refresh();
-                });
-        };  
-        ctrl.refresh = refresh;       
-        ctrl.confirmDelete = confirmDelete;
-        ctrl.deleteRegistro = _delete;        
-        ctrl.loadData = loadData;
-        ctrl.showModal = showModal;
-        ctrl.refresh();
+        ctrl.toolbar = toolbar;
+        ctrl.gridDataSource = gridDataSource;
+        ctrl.gridColumns = gridColumns;
+        loadData();                
+      
+      
     }]);
 }(window.angular));

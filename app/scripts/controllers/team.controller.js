@@ -8,12 +8,14 @@ angular.module('TeamsApp')
         ctrl.registros = [];
         ctrl.pageno = 1;        
         ctrl.total_count = 0;
-        ctrl.itemsPerPage = 5;      
+        ctrl.itemsPerPage = 5;  
+
 
         function loadData(page) {
             TeamResource.query({page: page, per_page: ctrl.itemsPerPage,q:ctrl.filter}, function(result, headers) {                
                 ctrl.registros = result;
                 ctrl.total_count = headers('X-Total-Count');
+                console.log('Teams',ctrl.registros);
             });
         };         
 

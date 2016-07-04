@@ -10,12 +10,10 @@ angular
         'ui.bootstrap',     
         'ngSanitize',    
         'ngTouch',
-        'ngResource',
-        'chart.js',
+        'ngResource',       
         'oc.lazyLoad',
         'ngStorage',
-        'pascalprecht.translate',
-        'angularUtils.directives.dirPagination',
+        'pascalprecht.translate',        
         'kendo.directives'        
     ])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',"$translateProvider", "$translatePartialLoaderProvider",

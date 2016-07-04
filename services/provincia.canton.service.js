@@ -122,11 +122,8 @@ function create(id_provincia, body) {
                         });
                     });
                 }
-
                 deferred.resolve();
             });
-
-
     }
 
     return deferred.promise;

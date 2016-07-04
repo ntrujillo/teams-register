@@ -1,78 +1,145 @@
 (function(angular){
-	'use strict';
+    'use strict';
 
 
 angular.module('TeamsApp')
-    .controller('RoleCtrl',['RoleResource','$uibModal',function (RoleResource,$modal) {
-        var ctrl = this;
-        ctrl.registros = [];
-        ctrl.pageno = 1;        
-        ctrl.total_count = 0;
-        ctrl.itemsPerPage = 5;      
-
-        function loadData(page) {
-            RoleResource.query({page: page, per_page: ctrl.itemsPerPage,q:ctrl.filter}, function(result, headers) {                
-                ctrl.registros = result;
-                ctrl.total_count = headers('X-Total-Count');
-            });
-        };         
-
-        function _delete(id) {
-            RoleResource.get({id: id}, function(result) {
-                ctrl.registro = result;
-                $('#deleteRegistroConfirmation').modal('show');
-            });
+    .controller('RoleCtrl',['RoleResource','$uibModal', '$filter' ,
+        function (RoleResource, $modal , $filter) {
+        var ctrl = this;     
+         
+        var gridDataSource = new kendo.data.DataSource({
+            pageSize: 5,
+            serverPaging:true,       
+            transport: {
+            read: function(options) {
+                if (angular.isDefined(options.data)) {                 
+                    var promise = RoleResource.query({page: (options.data.skip/options.data.pageSize)+1, per_page: options.data.pageSize},
+                        function(result, headers){                          
+                            options.success({"data":result,"total":headers('X-Total-Count')}); 
+                    });                                              
+                   
+                };
+                if (promise === false) {
+                    options.error({                        
+                        xhr: {}
+                    });
+                };
+            }, 
+            create: function(options) {
+                var model = options.data;  
+                delete model._id;
+                RoleResource.save(model, function(response) {                       
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(model);
+                    }
+                },function(error){
+                    console.log("Save error ",error);
+                });
+            },           
+            destroy: function(options) {
+                var model = options.data;               
+                var promise = RoleResource.delete({id: model._id},function(response) {    
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(new Error('DeletingError'));
+                    }
+                });                   
+            },
+            update: function(options) {
+                var model = options.data;             
+                var promise = RoleResource.update({id:model._id}, model, function(response) {    
+                    if(response){                                                                       
+                         options.success(model);                                    
+                    }else{
+                         options.error(model);
+                    }
+                });             
+            }                                          
+        },
+        schema: {
+            total: function(response){
+                return response.total;
+            },
+            data:function(response){
+                
+                return response.data;
+            },
+            model:{
+                id:"_id",
+                fields: {
+                    name:{nullable:false},
+                    active:{editable:true},
+                    description:{editable:true}
+                }
+            }
+            
+        },
+        error: function(e) {
+                    if (e.xhr.message && e.xhr.message == 'DeletingError') {
+                        console.log("Error",e);
+                    }
+        }
+    });
+    
+    var grid = {
+                control: function(container, options) {
+                    var controlInput = $('<input />', {
+                        name: options.field,
+                        'data-bind': "value:" + options.field,
+                        'ng-disabled': "false",
+                        'ng-show': "true",
+                        'ng-readonly': "false",
+                        'id': "VA_LEMYPOUTIW4503_DIOT879",
+                        'type': "checkbox",
+                        "class" : "checkbox",
+                        'ng-model': 'dataItem.active',                                                          
+                        'data-value-primitive': "true"
+                    });
+                    controlInput.appendTo(container);
+                }
         };
 
-       function confirmDelete(id) {
-            RoleResource.delete({id: id},
-                function () {
-                    ctrl.refresh();
-                    $('#deleteRegistroConfirmation').modal('hide');                    
-                });
-        };
-
-        function refresh() {           
-            ctrl.loadData(ctrl.pageno);          
-        };    
-
-        function showModal(selectedRole) {
-
-                var modalInstance = $modal.open({
-                  templateUrl: 'views/role-dialog.html',
-                  controller: 'RoleDialogCtrl as ctrl',
-                  size: 'md',
-                  backdrop: 'static',
-                  animation: true,
-                  resolve : {
-                    entity : function(){
-                        return selectedRole;
-                    },
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                {
-                                    name: 'role-dialog',
-                                    files: [                                      
-                                        'scripts/services/role.service.js',
-                                        'scripts/controllers/role-dialog.controller.js'                                        
-                                    ]
-                                }])
-                        }]
-                  }
-                });
-
-                modalInstance.result.then(function(obj) {
-                  ctrl.result = obj;
-                  ctrl.refresh()
-                });
-        };  
-        ctrl.refresh = refresh;       
-        ctrl.confirmDelete = confirmDelete;
-        ctrl.deleteRegistro = _delete;     
-        ctrl.showModal = showModal;
-        ctrl.loadData = loadData;
-        ctrl.refresh();
+    var gridColumns = [  
+            {
+                field: "name",
+                title: 'Name',
+                width: "10%"                                     
+            }, 
+            {
+                field: "active",
+                title: 'Actvie',
+                width: "5%" ,
+                editor: grid.control,
+                template: '<input type="checkbox" #= active ? \'checked="checked"\' : "" # class="chkbx" />'                                    
+            },  
+            {
+                field: "description",
+                title: 'Description',
+                width: "70%"                                     
+            },
+            { command: [{
+                id: "edit",
+                name: "edit",
+                template: "<a class='k-button k-grid-edit' href='' style='min-width:16px;'><span class='k-icon k-edit'></span></a>"
+                },
+                {
+                id: "destroy",
+                name: "destroy",
+                template: "<a class='k-button k-grid-delete' href='' style='min-width:16px;'><span class='k-icon k-delete'></span></a>"
+                }], title: "&nbsp;", width: "15%" }];
+             
+        var toolbar = [ { name: "create", text: $filter('translate')('role.home.createLabel') }/*,
+            { template: "<input type='button' class='k-button' value='Email Users' onclick='sendEmail()' />",
+              imageclass: "k-icon k-i-pencil" }*/]
 
 
+        ctrl.toolbar = toolbar;
+        ctrl.gridDataSource = gridDataSource;
+        ctrl.gridColumns = gridColumns;          
+      
+  
     }]);
 }(window.angular));
